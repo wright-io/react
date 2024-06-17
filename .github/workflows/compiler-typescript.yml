@@ -19,7 +19,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - id: set-matrix
         run: echo "matrix=$(find packages -mindepth 1 -maxdepth 1 -type d | sed 's!packages/!!g' | tr '\n' ',' | sed s/.$// | jq -Rsc '. / "," - [""]')" >> $GITHUB_OUTPUT
 
@@ -28,14 +28,14 @@ jobs:
     name: Run prettier
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
         with:
           node-version: 18.x
           cache: "yarn"
           cache-dependency-path: compiler/yarn.lock
       - name: Restore cached node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         with:
           path: "**/node_modules"
           key: ${{ runner.arch }}-${{ runner.os }}-modules-${{ hashFiles('compiler/**/yarn.lock') }}
@@ -47,14 +47,14 @@ jobs:
     name: Lint babel-plugin-react-compiler
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
         with:
           node-version: 18.x
           cache: "yarn"
           cache-dependency-path: compiler/yarn.lock
       - name: Restore cached node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         with:
           path: "**/node_modules"
           key: ${{ runner.arch }}-${{ runner.os }}-modules-${{ hashFiles('compiler/**/yarn.lock') }}
@@ -66,14 +66,14 @@ jobs:
     name: Jest babel-plugin-react-compiler
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
         with:
           node-version: 18.x
           cache: "yarn"
           cache-dependency-path: compiler/yarn.lock
       - name: Restore cached node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         id: node_modules
         with:
           path: "**/node_modules"
@@ -90,14 +90,14 @@ jobs:
       matrix:
         workspace_name: ${{ fromJSON(needs.discover_yarn_workspaces.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
         with:
           node-version: 18.x
           cache: "yarn"
           cache-dependency-path: compiler/yarn.lock
       - name: Restore cached node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         id: node_modules
         with:
           path: "**/node_modules"

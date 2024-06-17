@@ -9,7 +9,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v9
+      - uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9
         with:
           # --- Issues & PRs ---
           # Number of days of inactivity before an issue or PR becomes stale

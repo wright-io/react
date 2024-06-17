@@ -16,8 +16,8 @@ jobs:
     env:
       TZ: "/usr/share/zoneinfo/America/Los_Angeles"
     steps:
-    - uses: actions/checkout@v4.1.0
-    - uses: actions/setup-node@v4
+    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+    - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
       with:
         node-version-file: '.nvmrc'
         cache: 'yarn'
