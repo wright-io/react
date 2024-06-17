@@ -38,8 +38,8 @@ jobs:
           #   os: windows-latest
     runs-on: ${{ matrix.target.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: Swatinem/rust-cache@11d1987849787746b1ba13dcbb74080ec08e5947 # v2
       - name: cargo test
         run: cargo test --manifest-path=Cargo.toml --locked ${{ matrix.target.features && '--features' }} ${{ matrix.target.features }}
 
@@ -47,15 +47,15 @@ jobs:
     name: Rust Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions-rs/toolchain@63eb9591781c46a70274cb3ebdf190fce92702e8 # v1
         with:
           # NOTE: use `rustup run <toolchain> <command>` in commands below
           # with this exact same toolchain value
           toolchain: nightly-2023-08-01
           override: true
           components: rustfmt, clippy
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@11d1987849787746b1ba13dcbb74080ec08e5947 # v2
       - name: rustfmt
         run: grep -r --include "*.rs" --files-without-match "@generated" crates | xargs rustup run nightly-2023-08-01 rustfmt --check --config="skip_children=true"
       # - name: cargo clippy
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     # TODO: build on more platforms, deploy, etc
     steps:
-      - uses: actions/checkout@v4
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: Swatinem/rust-cache@11d1987849787746b1ba13dcbb74080ec08e5947 # v2
       - name: cargo build
         run: cargo build --release

@@ -17,7 +17,7 @@ jobs:
       current_version_modern: ${{ steps.get_current_version.outputs.current_version_modern }}
       current_version_rn: ${{ steps.get_current_version.outputs.current_version_rn }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           ref: builds/facebook-www
       - name: "Get last version string for www"
@@ -30,7 +30,7 @@ jobs:
           echo "Last modern version is $VERSION_MODERN"
           echo "last_version_classic=$VERSION_CLASSIC" >> "$GITHUB_OUTPUT"
           echo "last_version_modern=$VERSION_MODERN" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           ref: builds/facebook-fbsource
       - name: "Get last version string for rn"
@@ -40,14 +40,14 @@ jobs:
           VERSION_NATIVE_FB=$( [ -f ./compiled-rn/VERSION_NATIVE_FB ] && cat ./compiled-rn/VERSION_NATIVE_FB || echo '' )
           echo "Last rn version is $VERSION_NATIVE_FB"
           echo "last_version_rn=$VERSION_NATIVE_FB" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: "Check branches"
         id: check_branches
         run: |
           echo "www_branch_count=$(git ls-remote --heads origin "refs/heads/meta-www" | wc -l)" >> "$GITHUB_OUTPUT"
           echo "fbsource_branch_count=$(git ls-remote --heads origin "refs/heads/meta-fbsource" | wc -l)" >> "$GITHUB_OUTPUT"
       - name: Download and unzip artifacts
-        uses: actions/github-script@v6
+        uses: actions/github-script@00f12e3e20659f42342b1c0226afda7f7c042325 # v6
         env:
           CIRCLECI_TOKEN: ${{secrets.CIRCLECI_TOKEN_DIFFTRAIN}}
         with:
@@ -211,11 +211,11 @@ jobs:
           echo "current_version_classic=$VERSION_CLASSIC" >> "$GITHUB_OUTPUT"
           echo "current_version_modern=$VERSION_MODERN" >> "$GITHUB_OUTPUT"
           echo "current_version_rn=$VERSION_NATIVE_FB" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
         with:
           name: compiled
           path: compiled/
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
         with:
           name: compiled-rn
           path: compiled-rn/
@@ -225,12 +225,12 @@ jobs:
     if: ${{ (github.ref == 'refs/heads/main' && needs.download_artifacts.outputs.www_branch_count == '0') || github.ref == 'refs/heads/meta-www' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           ref: builds/facebook-www
       - name: Ensure clean directory
         run: rm -rf compiled
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: compiled
           path: compiled/
@@ -292,7 +292,7 @@ jobs:
           git status -u
       - name: Commit changes to branch
         if: steps.check_should_commit.outputs.should_commit == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a # v4
         with:
           commit_message: |
             ${{ github.event.head_commit.message }}
@@ -308,12 +308,12 @@ jobs:
     if: ${{ (github.ref == 'refs/heads/main' && needs.download_artifacts.outputs.fbsource_branch_count == '0') || github.ref == 'refs/heads/meta-fbsource' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           ref: builds/facebook-fbsource
       - name: Ensure clean directory
         run: rm -rf compiled-rn
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: compiled-rn
           path: compiled-rn/
@@ -362,7 +362,7 @@ jobs:
           git add .
       - name: Signing files
         if: steps.check_should_commit.outputs.should_commit == 'true'
-        uses: actions/github-script@v6
+        uses: actions/github-script@00f12e3e20659f42342b1c0226afda7f7c042325 # v6
         with:
           script: |
             // TODO: Move this to a script file.
@@ -450,7 +450,7 @@ jobs:
           git status
       - name: Commit changes to branch
         if: steps.check_should_commit.outputs.should_commit == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a # v4
         with:
           commit_message: |
             ${{ github.event.head_commit.message }}
